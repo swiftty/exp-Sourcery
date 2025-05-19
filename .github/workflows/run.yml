@@ -1,0 +1,33 @@
+name: run
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  run:
+    runs-on: macos-14
+    steps:
+      - name: Set Xcode 15.3.0
+        run: sudo xcode-select -s /Applications/Xcode_15.3.0.app/Contents/Developer
+      - name: Print Current Xcode
+        run: xcode-select -p
+      - uses: actions/checkout@v3
+      - name: Build
+        run: |
+          brew install coreutils
+          brew install sourcekitten
+
+          cd Sourcery-master
+          swift build --disable-sandbox -c release
+          mv .build/release/sourcery sourcery-bin
+          rm -rf .build
+      - name: Run
+        run: |
+          cd Sourcery-master
+          ./sourcery-bin \
+            --sources Sourcery-Example/Sourcery-Example \
+            --templates Sourcery-Example/Templates \
+            --watch &
+
+          sleep 10
