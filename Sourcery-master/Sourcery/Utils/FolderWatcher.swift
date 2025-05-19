@@ -101,6 +101,7 @@ public enum FolderWatcher {
         }
 
         deinit {
+            print("deinit FolderWatcher.Local")
             FSEventStreamStop(stream)
             FSEventStreamInvalidate(stream)
             FSEventStreamRelease(stream)
