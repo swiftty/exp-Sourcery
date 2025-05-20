@@ -22,14 +22,18 @@ jobs:
           swift build --disable-sandbox -c release
           mv .build/release/sourcery sourcery-bin
           rm -rf .build
-      - name: Run
-        timeout-minutes: 1
-        shell: bash -xe {0}
-        run: |
-          cd Sourcery-master
-          ./sourcery-bin --version
-          ./sourcery-bin \
-            --verbose \
-            --sources Sourcery-Example/Sourcery-Example \
-            --templates Sourcery-Example/Templates \
-            --watch 2>&1
+      # - name: Run
+      #   timeout-minutes: 1
+      #   shell: bash -xe {0}
+      #   run: |
+      #     cd Sourcery-master
+      #     ./sourcery-bin --version
+      #     ./sourcery-bin \
+      #       --verbose \
+      #       --sources Sourcery-Example/Sourcery-Example \
+      #       --templates Sourcery-Example/Templates \
+      #       --watch 2>&1
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sourcery-bin
+          path: Sourcery-master/sourcery-bin
