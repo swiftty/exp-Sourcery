@@ -26,6 +26,7 @@ jobs:
         run: |
           cd Sourcery-master
           ./sourcery-bin \
+            --verbose \
             --sources Sourcery-Example/Sourcery-Example \
             --templates Sourcery-Example/Templates \
             --watch &
