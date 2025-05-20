@@ -23,12 +23,13 @@ jobs:
           mv .build/release/sourcery sourcery-bin
           rm -rf .build
       - name: Run
+        timeout-minutes: 1
+        shell: bash -xe {0}
         run: |
           cd Sourcery-master
+          ./sourcery-bin --version
           ./sourcery-bin \
             --verbose \
             --sources Sourcery-Example/Sourcery-Example \
             --templates Sourcery-Example/Templates \
-            --watch &
-
-          sleep 10
+            --watch 2>&1
